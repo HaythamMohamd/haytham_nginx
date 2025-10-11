@@ -520,3 +520,117 @@ server {
 ## LAB
 
 ![alt text](image-130.png)
+
+# LAB Solution
+
+# 01 go to the config file
+
+![alt text](image-131.png)
+
+# 02 create the pool
+
+![alt text](image-132.png)
+
+# 03 added some headers
+
+![alt text](image-133.png)
+
+# 04 create the cache
+
+![alt text](image-134.png)
+
+# 05 create block for ssl
+
+![alt text](image-135.png)
+
+# 06 check the firewall and config
+
+![alt text](image-136.png)
+![alt text](image-137.png)
+![alt text](image-138.png)
+![alt text](image-139.png)
+
+# 07 test using curl
+
+# -k to enforce it using self sign cert
+
+![alt text](image-141.png)
+
+# this should be http not https
+
+![alt text](image-140.png)
+![alt text](image-142.png)
+
+# test round robin
+
+![alt text](image-143.png)
+
+## advanced topcis and performance tunning
+
+![alt text](image-144.png)
+
+# 01 worker_processes auto if ou don't know number of cpu
+
+![alt text](image-145.png)
+
+# 02 optimize buffer size
+
+![alt text](image-146.png)
+
+# 03 managing timeout
+
+![alt text](image-147.png)
+
+# 04 sendfile
+
+![alt text](image-148.png)
+
+# 05 rate limiting
+
+![alt text](image-149.png)
+![alt text](image-150.png)
+
+## logging and monitoring
+
+# log rotate
+
+![alt text](image-151.png)
+
+# monitoring
+
+![alt text](image-152.png)
+
+## LAB Solution
+
+# 01 check the processes
+
+![alt text](image-157.png)
+![alt text](image-153.png)
+
+# 02 worker_connections, it is better to be more depending on resources
+
+![alt text](image-154.png)
+
+# 03 for tunning make the body size 10M
+
+![alt text](image-155.png)
+
+# 04 for client_header_timeout
+
+![alt text](image-156.png)
+
+# 05 configure rate limiting on the config of example.com
+
+![alt text](image-158.png)
+![alt text](image-159.png)
+
+# 06 create custom log
+
+![alt text](image-162.png)
+![alt text](image-161.png)
+
+# 07 create logrotate file
+
+![alt text](image-164.png)
+![alt text](image-163.png)
+![alt text](image-165.png)
