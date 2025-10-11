@@ -338,3 +338,185 @@ server {
 ## security and ssl config
 
 ![alt text](image-61.png)
+![alt text](image-62.png)
+![alt text](image-63.png)
+![alt text](image-64.png)
+
+# encryption , authentication and integrity
+
+![alt text](image-65.png)
+![alt text](image-66.png)
+
+# symmetric and asymmetric encryption
+
+![alt text](image-67.png)
+
+# https
+
+![alt text](image-68.png)
+![alt text](image-69.png)
+
+# why https is important?
+
+![alt text](image-70.png)
+![alt text](image-71.png)
+![alt text](image-72.png)
+![alt text](image-73.png)
+![alt text](image-74.png)
+
+# how does ssl/tls work?
+
+![alt text](image-75.png)
+![alt text](image-76.png)
+![alt text](image-77.png)
+![alt text](image-78.png)
+![alt text](image-79.png)
+![alt text](image-80.png)
+
+# what is ssl/tls cert ?
+
+![alt text](image-81.png)
+
+# types of certs
+
+![alt text](image-82.png)
+
+# how to generate self signed cert using openssl
+
+![alt text](image-83.png)
+
+# how to configure it at the nginx cert
+
+![alt text](image-84.png)
+
+# diffi-helman paramters
+
+![alt text](image-85.png)
+
+# to make a cert using lets encrypt (certbot)
+
+![alt text](image-86.png)
+
+# here to enforce https and do the redirection at nginx
+
+![alt text](image-87.png)
+
+# here if you want to use ssl from begining
+
+![alt text](image-88.png)
+
+# ssl optimization
+
+![alt text](image-89.png)
+
+## LAB for ssl
+
+![alt text](image-90.png)
+
+# LAb Solution
+
+# 01 create self signed certs
+
+![alt text](image-91.png)
+
+# 02 copy the certs(exampl.com.crt , example.com.key and rootCA.crt) to /etc/ssl/certs
+
+![alt text](image-92.png)
+
+# 03 do the redirection, anyone request http will be redirect to https
+
+![alt text](image-97.png)
+![alt text](image-94.png)
+
+# 04 creare another block for the https
+
+![alt text](image-95.png)
+
+# 05 to make optimization, delet the old headers can ciphers
+
+![alt text](image-96.png)
+
+# 06 check the firewall and config then reload
+
+![alt text](image-98.png)
+
+# 07 test using curl of browser
+
+# http will be redirected to https
+
+![alt text](image-101.png)
+![alt text](image-99.png)
+![alt text](image-100.png)
+
+# https will open
+
+![alt text](image-102.png)
+
+## nginx as reverse proxy and load balancer
+
+![alt text](image-103.png)
+
+# reverse proxy
+
+![alt text](image-104.png)
+
+# benefits of using reverse proxy
+
+![alt text](image-105.png)
+![alt text](image-107.png)
+![alt text](image-109.png)
+![alt text](image-110.png)
+
+# how to make nginx to be reverse proxy
+
+![alt text](image-111.png)
+
+# you can set custom headers
+
+![alt text](image-112.png)
+![alt text](image-113.png)
+
+## nginx as load balancer
+
+# 01 round robin
+
+![alt text](image-114.png)
+![alt text](image-115.png)
+
+# 02 least connections
+
+![alt text](image-116.png)
+![alt text](image-117.png)
+![alt text](image-118.png)
+
+# 03 ip hash
+
+![alt text](image-119.png)
+![alt text](image-120.png)
+
+# 04 weighted load balancing
+
+![alt text](image-121.png)
+![alt text](image-122.png)
+
+# 05 least time (nginx plus)
+
+![alt text](image-123.png)
+![alt text](image-124.png)
+
+## health checks
+
+![alt text](image-125.png)
+
+# types of health checks
+
+![alt text](image-126.png)
+
+## caching in nginx
+
+![alt text](image-127.png)
+![alt text](image-128.png)
+
+## LAB
+
+![alt text](image-130.png)
