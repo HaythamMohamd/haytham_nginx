@@ -335,6 +335,220 @@ server {
 
 ![alt text](image-60.png)
 
+# LAB SUMMARY
+```yml
+
+[root@ip-172-31-19-159 ~]# hostnamectl set-hostname nginx
+[root@ip-172-31-19-159 ~]# exit
+logout
+[ec2-user@ip-172-31-19-159 ~]$ sudo -i
+[root@nginx ~]# 
+[root@nginx ~]# 
+[root@nginx ~]# 
+[root@nginx ~]# 
+[root@nginx ~]# 
+[root@nginx ~]# dbf install -y nginx
+
+[root@nginx ~]# systemctl start nginx
+[root@nginx ~]# ^start^enable
+systemctl enable nginx
+Created symlink /etc/systemd/system/multi-user.target.wants/nginx.service → /usr/lib/systemd/system/nginx.service.
+[root@nginx ~]# 
+[root@nginx ~]# 
+[root@nginx ~]# curl localhost
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, nginx is successfully installed and working.
+Further configuration is required for the web server, reverse proxy, 
+API gateway, load balancer, content cache, or other features.</p>
+
+<p>For online documentation and support please refer to
+<a href="https://nginx.org/">nginx.org</a>.<br/>
+To engage with the community please visit
+<a href="https://community.nginx.org/">community.nginx.org</a>.<br/>
+For enterprise grade support, professional services, additional 
+security features and capabilities please refer to
+<a href="https://f5.com/nginx">f5.com/nginx</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+
+
+[root@nginx nginx]# cat /etc/nginx/nginx.conf
+# For more information on configuration, see:
+#   * Official English Documentation: http://nginx.org/en/docs/
+#   * Official Russian Documentation: http://nginx.org/ru/docs/
+
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log notice;
+pid /run/nginx.pid;
+
+# Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile            on;
+    tcp_nopush          on;
+    keepalive_timeout   65;
+    types_hash_max_size 4096;
+
+    include             /etc/nginx/mime.types;
+    default_type        application/octet-stream;
+
+    # Load modular configuration files from the /etc/nginx/conf.d directory.
+    # See http://nginx.org/en/docs/ngx_core_module.html#include
+    # for more information.
+    include /etc/nginx/conf.d/*.conf;
+
+    server {
+        listen       80;
+        listen       [::]:80;
+        server_name  _;
+        root         /usr/share/nginx/html;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        error_page 404 /404.html;
+        location = /404.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+        }
+
+
+
+[root@nginx ~]# mkdir -p /var/www/example.com
+[root@nginx ~]# echo "example.com site" > /var/www/example.com/index.html
+[root@nginx ~]# chown -R nginx:nginx /var/www/example.com/index.html
+[root@nginx ~]# vim /etc/nginx/conf.d/example.com.conf
+[root@nginx ~]# vim /var/www/example.com/404.html
+server {
+        listen 80;
+        server_name example.com;
+        root /var/www/example.com;
+        index index.html;
+
+        # custom 404 error page
+        error_page 404 /404.html;
+        location = /404.html {
+                root /var/www/example.com;
+        }
+
+        # Redirection /oldpage to /newpage 
+        location /oldpage {
+                rewrite ^/oldpage$ /newpage permanent;
+        }
+}
+
+[root@nginx ~]# mkdir -p /var/www/test.com
+[root@nginx ~]# echo "test.com site" > /var/www/test.com/index.html
+[root@nginx ~]# cp /etc/nginx/conf.d/example.com.conf /etc/nginx/conf.d/test.com.conf
+[root@nginx ~]# vim /etc/nginx/conf.d/test.com.conf
+server {
+        listen 80;
+        server_name test.com;
+        root /var/www/test.com;
+        index index.html;
+
+        # enable directory listing for /files
+        location /files/ {
+                autoindex on;
+        }
+}
+
+[root@nginx ~]# chown -R nginx:nginx /var/www/test.com/
+
+
+[root@nginx ~]# cp /etc/nginx/conf.d/example.com.conf /etc/nginx/conf.d/oldsite.com.conf
+[root@nginx ~]# cim /etc/nginx/conf.d/oldsite.com.conf
+[root@nginx ~]# vim /etc/nginx/conf.d/oldsite.com.conf
+server {
+        listen 80;
+        server_name oldsite.com;
+        return 301 http://example.com$request_uri;
+}
+
+
+[root@nginx ~]# nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+[root@nginx ~]# 
+[root@nginx ~]# 
+[root@nginx ~]# systemctl restart nginx
+[root@nginx ~]# 
+[root@nginx ~]# curl localhost
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, nginx is successfully installed and working.
+Further configuration is required for the web server, reverse proxy, 
+API gateway, load balancer, content cache, or other features.</p>
+
+<p>For online documentation and support please refer to
+<a href="https://nginx.org/">nginx.org</a>.<br/>
+To engage with the community please visit
+<a href="https://community.nginx.org/">community.nginx.org</a>.<br/>
+For enterprise grade support, professional services, additional 
+security features and capabilities please refer to
+<a href="https://f5.com/nginx">f5.com/nginx</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+[root@nginx ~]# 
+[root@nginx ~]# 
+[root@nginx ~]# curl example.com
+example.com site
+[root@nginx ~]# curl test.com
+test.com site
+[root@nginx ~]# curl example.com/non
+<h1>404 Not found </h1>
+<p> the page that you are looking for is not exist </p>
+[root@nginx ~]# curl example.com/oldpage
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.30.6</center>
+</body>
+</html>
+[root@nginx ~]# curl example.com/newpage
+<h1>404 Not found </h1>
+<p> the page that you are looking for is not exist </p>
+```
 ## security and ssl config
 
 ![alt text](image-61.png)
